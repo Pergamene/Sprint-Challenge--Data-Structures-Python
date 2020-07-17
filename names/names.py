@@ -1,4 +1,5 @@
 import time
+import math
 from binary_search_tree import BSTNode
 
 start_time = time.time()
@@ -14,15 +15,35 @@ f.close()
 duplicates = []  # Return the list of duplicates in this data structure
 
 # BST
-root = None
-for name in names_1:
-  if root is None:
-    root = BSTNode(name)
-  else:
-    root.insert(name)
+# root = None
+# for name in names_1:
+#   if root is None:
+#     root = BSTNode(name)
+#   else:
+#     root.insert(name)
+
+# for name in names_2:
+#   if root.contains(name):
+#     duplicates.append(name)
+
+# STRETCH
+names_1.sort()
+
+def binary_search(names, search_value):
+  left = 0
+  right = len(names) - 1
+  while left <= right:
+    mid = math.floor((left + right) / 2)
+    if names[mid] < search_value:
+      left = mid + 1
+    elif names[mid] > search_value:
+      right = mid - 1
+    else:
+      return True
+  return False
 
 for name in names_2:
-  if root.contains(name):
+  if binary_search(names_1, name):
     duplicates.append(name)
 
 # set (to see best time)
